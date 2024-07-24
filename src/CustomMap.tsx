@@ -1,5 +1,5 @@
 // CustomMap.tsx
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { MapContainer, ImageOverlay, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -41,6 +41,9 @@ const icon3 = new L.Icon({
 });
 
 const CustomMap: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const mapRef = useRef<L.Map | null>(null);
+
   const bounds: L.LatLngBoundsExpression = [
     [0, 0],
     [1000, 1000],
@@ -55,17 +58,37 @@ const CustomMap: React.FC = () => {
     { position: [700, 700], text: "Texto para o Pin 3" },
   ];
 
+  useEffect(() => {
+    if (mapRef.current) {
+      // Executa qualquer código adicional que dependa da instância do mapa aqui
+    }
+  }, []);
+
+  const handleButtonClick = () => {
+    const newIndex = (currentIndex + 1) % markers.length;
+    setCurrentIndex(newIndex);
+    const map = mapRef.current;
+    if (map) {
+      map.setView(markers[newIndex].position, map.getZoom(), {
+        animate: true,
+      });
+    }
+  };
+
   return (
     <div>
       <MapContainer
-        center={[500, 500]} // da para alterar de acordo com o clique do usário.
+        center={markers[currentIndex].position}
         zoom={1}
         minZoom={0}
         maxZoom={4}
         style={{ height: "100vh", width: "100%" }}
         crs={L.CRS.Simple}
-        maxBounds={bounds} // Adicione esta linha para limitar o zoom out
-        maxBoundsViscosity={1.0} // Adicione esta linha para garantir que o mapa não saia dos limites
+        maxBounds={bounds}
+        maxBoundsViscosity={1.0}
+        whenReady={(mapInstance) => {
+          mapRef.current = mapInstance.target;
+        }}
       >
         <ImageOverlay url={imageUrl} bounds={bounds} />
         {markers.map((marker, index) => (
@@ -82,6 +105,7 @@ const CustomMap: React.FC = () => {
           </Marker>
         ))}
       </MapContainer>
+      <button onClick={handleButtonClick}>Próxima Coordenada</button>
     </div>
   );
 };
