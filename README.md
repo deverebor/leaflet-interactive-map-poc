@@ -28,3 +28,14 @@ export default {
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+
+## Anotations
+
+1 - json com motion;
+2 - suport para a ferramenta;
+3 - visão 3D da imagem do background;
+4 - limite da renderização do mapa;
+5 - adicionar markers personalizados;
+6 - testes unitários e de integração com cypres(data-testid);
+7 - suporte gif;

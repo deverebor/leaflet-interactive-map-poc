@@ -50,7 +50,26 @@ const icon1 = new L.Icon({
 
 const icon2 = new L.Icon({
   iconUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+    "data:image/svg+xml;base64," +
+    btoa(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="100" height="112" viewBox="0 0 100 112" fill="none">
+        <g filter="url(#filter0_d_26489_41462)">
+          <path d="M50 29.75C44.5318 29.7562 39.2894 31.9312 35.4228 35.7978C31.5562 39.6644 29.3812 44.9068 29.375 50.375C29.375 68.0234 48.125 81.3523 48.9242 81.9102C49.2395 82.131 49.6151 82.2495 50 82.2495C50.3849 82.2495 50.7605 82.131 51.0758 81.9102C51.875 81.3523 70.625 68.0234 70.625 50.375C70.6188 44.9068 68.4438 39.6644 64.5772 35.7978C60.7106 31.9312 55.4682 29.7562 50 29.75ZM50 42.875C51.4834 42.875 52.9334 43.3149 54.1668 44.139C55.4001 44.9631 56.3614 46.1344 56.9291 47.5049C57.4968 48.8753 57.6453 50.3833 57.3559 51.8382C57.0665 53.293 56.3522 54.6294 55.3033 55.6783C54.2544 56.7272 52.918 57.4415 51.4632 57.7309C50.0083 58.0203 48.5003 57.8718 47.1299 57.3041C45.7594 56.7364 44.5881 55.7751 43.764 54.5418C42.9399 53.3084 42.5 51.8584 42.5 50.375C42.5 48.3859 43.2902 46.4782 44.6967 45.0717C46.1032 43.6652 48.0109 42.875 50 42.875Z" fill="#6B7280"/>
+        </g>
+        <defs>
+          <filter id="filter0_d_26489_41462" x="-9" y="-3" width="118" height="118" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset/>
+            <feGaussianBlur stdDeviation="14.5"/>
+            <feComposite in2="hardAlpha" operator="out"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_26489_41462"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_26489_41462" result="shape"/>
+          </filter>
+        </defs>
+      </svg>
+    `),
   iconSize: [32, 32],
   iconAnchor: [16, 32],
   popupAnchor: [0, -32],
@@ -80,7 +99,7 @@ const CustomMap: React.FC = () => {
   const markers: { position: L.LatLngExpression; text: string }[] = [
     { position: [500, 500], text: "Texto para o Pin 1" },
     { position: [600, 600], text: "Texto para o Pin 2" },
-    { position: [700, 700], text: "Texto para o Pin 3" },
+    { position: [700, 700], text: "oi tudo bom" },
   ];
 
   useEffect(() => {
@@ -102,6 +121,7 @@ const CustomMap: React.FC = () => {
 
   return (
     <div>
+      <button onClick={handleButtonClick}>Próxima Coordenada</button>
       <MapContainer
         center={markers[currentIndex].position}
         zoom={1}
@@ -130,7 +150,6 @@ const CustomMap: React.FC = () => {
           </Marker>
         ))}
       </MapContainer>
-      <button onClick={handleButtonClick}>Próxima Coordenada</button>
     </div>
   );
 };
