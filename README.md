@@ -32,10 +32,9 @@ export default {
 
 ## Anotations
 
-1 - json com motion;
-2 - suport para a ferramenta;
-3 - visão 3D da imagem do background;
-4 - limite da renderização do mapa;
-5 - adicionar markers personalizados;
-6 - testes unitários e de integração com cypres(data-testid);
-7 - suporte gif;
+1 - json com motion(não suporta);
+2 - suport para a ferramenta(sim tem suporte e é ativa, o ultimo LTS foi em 2023 mas saira um agora em 2024);
+3 - visão 3D da imagem do background(Não tem suporte nativamente, mas tem como integrar com o Mapbox);
+4 - limite da renderização do mapa(possível a resolução com o Mapbox);
+6 - testes unitários e de integração com cypres(data-testid suporta);
+7 - suporte gif(sim);
