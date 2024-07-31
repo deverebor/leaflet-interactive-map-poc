@@ -16,7 +16,7 @@ L.Icon.Default.mergeOptions({
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
 
-// Cria ícones personalizados
+// Cria ícones personalizados (exemplo)
 const icon1 = new L.Icon({
   iconUrl:
     "data:image/svg+xml;base64," +
@@ -48,58 +48,31 @@ const icon1 = new L.Icon({
   popupAnchor: [0, -32],
 });
 
-const icon2 = new L.Icon({
-  iconUrl:
-    "data:image/svg+xml;base64," +
-    btoa(`
-      <svg xmlns="http://www.w3.org/2000/svg" width="100" height="112" viewBox="0 0 100 112" fill="none">
-        <g filter="url(#filter0_d_26489_41462)">
-          <path d="M50 29.75C44.5318 29.7562 39.2894 31.9312 35.4228 35.7978C31.5562 39.6644 29.3812 44.9068 29.375 50.375C29.375 68.0234 48.125 81.3523 48.9242 81.9102C49.2395 82.131 49.6151 82.2495 50 82.2495C50.3849 82.2495 50.7605 82.131 51.0758 81.9102C51.875 81.3523 70.625 68.0234 70.625 50.375C70.6188 44.9068 68.4438 39.6644 64.5772 35.7978C60.7106 31.9312 55.4682 29.7562 50 29.75ZM50 42.875C51.4834 42.875 52.9334 43.3149 54.1668 44.139C55.4001 44.9631 56.3614 46.1344 56.9291 47.5049C57.4968 48.8753 57.6453 50.3833 57.3559 51.8382C57.0665 53.293 56.3522 54.6294 55.3033 55.6783C54.2544 56.7272 52.918 57.4415 51.4632 57.7309C50.0083 58.0203 48.5003 57.8718 47.1299 57.3041C45.7594 56.7364 44.5881 55.7751 43.764 54.5418C42.9399 53.3084 42.5 51.8584 42.5 50.375C42.5 48.3859 43.2902 46.4782 44.6967 45.0717C46.1032 43.6652 48.0109 42.875 50 42.875Z" fill="#6B7280"/>
-        </g>
-        <defs>
-          <filter id="filter0_d_26489_41462" x="-9" y="-3" width="118" height="118" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-            <feOffset/>
-            <feGaussianBlur stdDeviation="14.5"/>
-            <feComposite in2="hardAlpha" operator="out"/>
-            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
-            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_26489_41462"/>
-            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_26489_41462" result="shape"/>
-          </filter>
-        </defs>
-      </svg>
-    `),
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -32],
-});
+// Define a imagem de overlay base
+const baseImageUrl =
+  "https://lh3.googleusercontent.com/-qx_UnyJwGHc/YBIqHMKwwbI/AAAAAAAAasA/uVamQSZvyvw4wMfFB44x1LxP-KOcI7VlgCLcBGAsYHQ/s16000/gta-sa-san-andreas-detailed-radar-map-satellite-view.jpg";
+const baseImageBounds: L.LatLngBoundsLiteral = [
+  [0, 0],
+  [1000, 1000],
+];
 
-const icon3 = new L.Icon({
-  iconUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -32],
-});
+// Define a imagem de overlay superior
+const overlayImageUrl =
+  "https://canine.org/wp-content/uploads/2024/06/Q224-blackpup-bluecircle-copy.png"; // Substitua com a URL da sua imagem de overlay
+const overlayImageBounds: L.LatLngBoundsLiteral = [
+  [500, 500],
+  [800, 800],
+];
 
 const CustomMap: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const mapRef = useRef<L.Map | null>(null);
 
-  const bounds: L.LatLngBoundsExpression = [
-    [0, 0],
-    [1000, 1000],
-  ]; // Define as coordenadas dos cantos da imagem
-
-  const imageUrl =
-    "https://lh3.googleusercontent.com/-qx_UnyJwGHc/YBIqHMKwwbI/AAAAAAAAasA/uVamQSZvyvw4wMfFB44x1LxP-KOcI7VlgCLcBGAsYHQ/s16000/gta-sa-san-andreas-detailed-radar-map-satellite-view.jpg"; // Substitua pela URL da sua imagem
-
   // Posições dos pins
   const markers: { position: L.LatLngExpression; text: string }[] = [
     { position: [500, 500], text: "Texto para o Pin 1" },
-    { position: [600, 600], text: "Texto para o Pin 2" },
-    { position: [700, 700], text: "oi tudo bom" },
+    { position: [600, 600], text: "oiiii" },
+    { position: [700, 700], text: "rouf rouf rouf" },
   ];
 
   useEffect(() => {
@@ -129,18 +102,19 @@ const CustomMap: React.FC = () => {
         maxZoom={4}
         style={{ height: "100vh", width: "100%" }}
         crs={L.CRS.Simple}
-        maxBounds={bounds}
+        maxBounds={baseImageBounds}
         maxBoundsViscosity={1.0}
         whenReady={(mapInstance) => {
           mapRef.current = mapInstance.target;
         }}
       >
-        <ImageOverlay url={imageUrl} bounds={bounds} />
+        <ImageOverlay url={baseImageUrl} bounds={baseImageBounds} />
+        <ImageOverlay url={overlayImageUrl} bounds={overlayImageBounds} />
         {markers.map((marker, index) => (
           <Marker
             key={index}
             position={marker.position}
-            icon={index === 0 ? icon1 : index === 1 ? icon2 : icon3}
+            icon={index === 0 ? icon1 : index === 1 ? icon1 : icon1}
           >
             <Popup className="custom-popup">
               <div>
